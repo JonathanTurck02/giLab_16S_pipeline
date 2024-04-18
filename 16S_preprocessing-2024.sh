@@ -2,7 +2,7 @@
 # A manifest file must be created to handle this
 # $case-sensitive input/output, please specify specific file name, path, or depth
 
-# create manifest w/ CreateManifest.sh
+# create manifest w/ create-manifest.sh
 
 qiime tools import \
   --type 'SampleData[PairedEndSequencesWithQuality]' \
