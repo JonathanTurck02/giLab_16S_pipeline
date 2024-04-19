@@ -319,7 +319,7 @@ qiime diversity beta-correlation \
 qiime composition ancombc \
  --i-table filtered-table-dada2.qza \
  --m-metadata-file $mappingFile \
- --p-formula $columnName \
+ --p-formula '$columnName' \
  --p-p-adj-method hochberg \
  --o-differentials differential_abundance_by_$columnName.qza
 
