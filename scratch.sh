@@ -10,3 +10,10 @@ qiime tools import \
 qiime demux summarize \
   --i-data demux-paired-end.qza \
   --o-visualization demux-paired-end.qzv
+
+
+# denoising with dada2 produces this table
+qiime metadata tabulate \
+  --m-input-file table-dada2.qza \
+  --o-visualization table-dada2.qzv
+   
