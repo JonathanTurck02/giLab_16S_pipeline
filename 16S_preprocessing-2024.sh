@@ -19,7 +19,8 @@ qiime demux summarize \
 # dada2 performs quality filtering on its own
 
 # visualize what denoise did, can change parameters of the denoise
-  --m-input-file table-dada2.qza \
+qiime feature-table summarize \
+  --i-table table-dada2.qza \
   --o-visualization table-dada2.qzv
 
 # the consensus seems to not do any sort of rarefaction for differential abundance methods

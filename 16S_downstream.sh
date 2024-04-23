@@ -42,15 +42,17 @@ qiime feature-table rarefy \
   --p-sampling-depth $samplingDepth \
   --o-rarefied-table rarefied-filtered-table-dada2-$samplingDepth.qza
 
+mkdir core-metrics-outputs/alpha-div
+
 qiime diversity alpha \
   --i-table rarefied-filtered-table-dada2-$samplingDepth.qza \
   --p-metric chao1 \
-  --o-alpha-diversity core-metrics-outputs/alpha-div/chao1_vector.qza
+  --o-alpha-diversity chao1_vector.qza
 
 qiime diversity alpha \
   --i-table rarefied-filtered-table-dada2-$samplingDepth.qza \
   --p-metric goods_coverage \
-  --o-alpha-diversity core-metrics-ouputs/alpha-div/goods_coverage_vector.qza
+  --o-alpha-diversity goods_coverage_vector.qza
 
 # export the raw core-metrics dm as tsvs
 mkdir core-metrics-outputs/raw-distance-matrices
@@ -103,7 +105,7 @@ qiime taxa barplot \
   --i-table filtered-table-dada2.qza \
   --i-taxonomy taxonomy.qza \
   --m-metadata-file $mappingFile \
-  --o-visualization filtered-table-dada2.qzv
+  --o-visualization taxa-barplot-filtered-table-dada2.qzv
 # test a barplot with rarefaction to see how it changes
 
 
@@ -121,7 +123,7 @@ qiime tools export \
 
 biom convert \
  -i collapsed-taxa-qza/L2-feature-table/feature-table.biom \
- -o collapsed-taxa-qza/L2-feature-table/L7-phylum-table.tsv --to-tsv
+ -o collapsed-taxa-qza/L2-feature-table/L2-phylum-table.tsv --to-tsv
 
 # Level 3, class
 qiime taxa collapse \
@@ -152,21 +154,6 @@ qiime tools export \
 biom convert \
  -i collapsed-taxa-qza/L4-feature-table/feature-table.biom \
  -o collapsed-taxa-qza/L4-feature-table/L4-class-table.tsv --to-tsv
-
-# Level 4, order
-qiime taxa collapse \
-  --i-table filtered-table-dada2.qza \
-  --i-taxonomy taxonomy.qza \
-  --p-level 4 \
-  --o-collapsed-table collapsed-taxa-qza/collapsed-filtered-table-L4.qza
-
-qiime tools export \
-  --input-path collapsed-taxa-qza/collapsed-filtered-table-L4.qza \
-  --output-path collapsed-taxa-qza/L4-feature-table
-
-biom convert \
- -i collapsed-taxa-qza/L4-feature-table/feature-table.biom \
- -o collapsed-taxa-qza/L4-feature-table/L4-order-table.tsv --to-tsv
 
 # Level 5, family
 qiime taxa collapse \
@@ -202,12 +189,12 @@ biom convert \
 qiime taxa collapse \
   --i-table filtered-table-dada2.qza \
   --i-taxonomy taxonomy.qza \
-  --p-level 3 \
-  --o-collapsed-table collapsed-taxa-qza/collapsed-filtered-table-L3.qza
+  --p-level 7 \
+  --o-collapsed-table collapsed-taxa-qza/collapsed-filtered-table-L7.qza
 
 qiime tools export \
-  --input-path collapsed-taxa-qza/collapsed-filtered-table-L3.qza \
-  --output-path collapsed-taxa-qza/L3-feature-table
+  --input-path collapsed-taxa-qza/collapsed-filtered-table-L7.qza \
+  --output-path collapsed-taxa-qza/L7-feature-table
 
 biom convert \
  -i collapsed-taxa-qza/L7-feature-table/feature-table.biom \
@@ -222,22 +209,22 @@ mkdir alpha-diversity
 qiime diversity alpha-group-significance \
   --i-alpha-diversity core-metrics-outputs/shannon_vector.qza \
   --m-metadata-file $mappingFile \
-  --o-visualization alpha-diversity/shannon_significance.qzv
+  --o-visualization shannon_significance.qzv
 
 qiime diversity alpha-group-significance \
   --i-alpha-diversity core-metrics-outputs/observed_features_vector.qza \
   --m-metadata-file $mappingFile \
-  --o-visualization alpha-diversity/observed_features_significance.qzv
+  --o-visualization observed_features_significance.qzv
 
 qiime diversity alpha-group-significance \
   --i-alpha-diversity core-metrics-outputs/chao1_vector.qza \
   --m-metadata-file $mappingFile \
-  --o-visualization alpha-diversity/chao1_significance.qzv 
+  --o-visualization chao1_significance.qzv
 
 qiime diversity alpha-group-significance \
   --i-alpha-diversity core-metrics-outputs/evenness_vector.qza \
   --m-metadata-file $mappingFile \
-  --o-visualization alpha-diversity/evenness_significance.qzv 
+  --o-visualization evenness_significance.qzv 
 
 qiime diversity alpha-group-significance \
   --i-alpha-diversity core-metrics-outputs/goods_coverage_vector.qza \
@@ -248,22 +235,22 @@ qiime diversity alpha-group-significance \
 qiime diversity alpha-correlation \
     --i-alpha-diversity core-metrics-outputs/shannon_vector.qza \
     --m-metadata-file $mappingFile \
-    --o-visualization alpha-diversity/shannon-alpha-correlation.qzv 
+    --o-visualization shannon-alpha-correlation.qzv
 
 qiime diversity alpha-correlation \
-    --i-alpha-diversity core-metrics-outputs/observed_features_vector.qza \
-    --m-metadata-file $mappingFile \
-    --o-visualization alpha-diversity/observed_features_correlation.qzv
+  --i-alpha-diversity core-metrics-outputs/observed_features_vector.qza \
+  --m-metadata-file $mappingFile \
+  --o-visualization observed_features_correlation.qzv
 
 qiime diversity alpha-correlation \
-    --i-alpha-diversity core-metrics-outputs/chao1_vector.qza \
-    --m-metadata-file $mappingFile \
-    --o-visualization alpha-diversity/chao1_vector.qzv
+  --i-alpha-diversity core-metrics-outputs/alpha-div/chao1_vector.qza \
+  --m-metadata-file $mappingFile \
+  --o-visualization chao1_vector.qzv
 
 qiime diversity alpha-correlation \
-    --i-alpha-diversity core-metrics-outputs/evenness_vector.qza \
-    --m-metadata-file $mappingFile \
-    --o-visualization alpha-diversity/evenness_vector.qzv 
+  --i-alpha-diversity core-metrics-outputs/evenness_vector.qza \
+  --m-metadata-file $mappingFile \
+  --o-visualization evenness_vector.qzv
 
 # beta statistics -- via ANOSIM
 mkdir beta-diversity
@@ -324,11 +311,11 @@ qiime composition ancombc \
  --o-differentials differential_abundance_by_$columnName.qza
 
 qiime composition tabulate \
-  --i-data differential_adbundance_by_$columnName.qza \
+  --i-data differential_abundance_by_$columnName.qza \
   --o-visualization differential_abundance_by_$columnName.qzv
 
 qiime composition da-barplot \
-  --i-data differential_adbundance_by_$columnName.qza \
+  --i-data differential_abundance_by_$columnName.qza \
   --o-visualization DA_barplot.qzv
 
 # heatmap visualization
