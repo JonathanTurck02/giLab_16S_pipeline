@@ -61,6 +61,7 @@ qiime tools export \
   --input-path core-metrics-outputs/evenness_vector.qza \
   --output-path core-metrics-outputs/raw-distance-matrices/alpha-div/eveness
 
+# TODO: faith pd vector does not exist !!
 qiime tools export \
   --input-path core-metrics-outputs/faith_pd_vector.qza \
   --output-path core-metrics-outputs/raw-distance-matrices/alpha-div/faith_pd
@@ -221,6 +222,7 @@ qiime diversity alpha-group-significance \
   --m-metadata-file $mappingFile \
   --o-visualization chao1_significance.qzv
 
+# this is not generated
 qiime diversity alpha-group-significance \
   --i-alpha-diversity core-metrics-outputs/evenness_vector.qza \
   --m-metadata-file $mappingFile \
@@ -240,13 +242,14 @@ qiime diversity alpha-correlation \
 qiime diversity alpha-correlation \
   --i-alpha-diversity core-metrics-outputs/observed_features_vector.qza \
   --m-metadata-file $mappingFile \
-  --o-visualization observed_features_correlation.qzv
+  --o-visualization alpha-diversity/observed_features_correlation.qzv
 
 qiime diversity alpha-correlation \
   --i-alpha-diversity core-metrics-outputs/alpha-div/chao1_vector.qza \
   --m-metadata-file $mappingFile \
-  --o-visualization chao1_vector.qzv
+  --o-visualization alpha-diversity/chao1_correlation.qzv
 
+# again no evenness
 qiime diversity alpha-correlation \
   --i-alpha-diversity core-metrics-outputs/evenness_vector.qza \
   --m-metadata-file $mappingFile \
