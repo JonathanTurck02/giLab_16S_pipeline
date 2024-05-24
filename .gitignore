@@ -3,3 +3,6 @@ demux
 COMMANDS_jt_gene656
 scratch
 COMMANDS_C23-69.sh
+create-manifest-test.sh
+tinybio_16S_pipeline.sh
+scratch.sh
