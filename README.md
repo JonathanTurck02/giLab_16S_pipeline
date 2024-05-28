@@ -41,11 +41,11 @@ The script-bank is a folder that includes the SILVA database for taxonomic assig
 **Pre-processing**
 This porion of the pipeline imports that raw fastq (sequences + quality information) into qiime2 via creation of a manifest file. It then trims the Illumina primers using cutadpat and creates visualizations to view the overall quality of the sequences. After the running this script the user should review the quality plots to adjust trimming parameters for the upstream.
 
-**Upstream**
+### Upstream
 This portion of the pipeline handles quality trimming and the computationally heavy processes. First, user specified truncation lengths are set for the forward and reverse reads. This script also takes a mapping file as input which will be used to assign metadata at some steps of the upstream.
 The DADA2 algorithm is used to identify the amplicon sequence variants and trim low quality regions. These features are then mapped against the SILVA 16S database for classification using the consensus-vsearch algorithm. Finally the features and taxonomy are assembled in the a phylogenic tree for use in some downstream analyses.
 
-**Downstream**
+### Downstream
 This portion of the pipeline handles creation of alpha diversity, beta diversity, and differential abundance statistics. A rarefaction depth is specified by the user to allow even sampling across all samples during alpha and beta diveristy analyses. A column of interest from the metadata file is also specified which will be used as the catergorical variable in downstream statistics. 
 For differential abundance analysis Analysis of Compositions of Microbiomes (ANOM) and Analysis of Compositions of Microbiomes with Bias Correction (ANCOM-BC) are performed. These differential abudance methods take into account the compositionality of microbiome data.
 
