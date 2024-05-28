@@ -6,12 +6,12 @@ touch file_names.txt
 ls *.fastq.gz > file_names.txt
 
 ## Step 2: (Optional) Ordering of samples ids in manifest file
-sort -t"_" -n -k1.2,1.4 file_names.txt > file_names_sorted.txt
+sort -t"_" -n -k1.3,1.4 -k1.1,1.2 file_names.txt > file_names_sorted.txt
 
 ## Step 3: Create list of Sample IDs:
 rm -f sample_ids.txt 
 touch sample_ids.txt
-cut -d_ -f1 file_names_sorted.txt | uniq > sample_ids.txt
+cut -d_ -f1,2 file_names_sorted.txt | uniq > sample_ids.txt
 
 ## Step 4: Create lists of forward and reverse file paths for each sample ID:
 for sample_id in $(cat sample_ids.txt)
@@ -33,5 +33,3 @@ done
 
 ## Step 6: Clean up
 rm -f file_names.txt file_names_sorted.txt sample_ids.txt *_R1.txt *_R2.txt
-
-
