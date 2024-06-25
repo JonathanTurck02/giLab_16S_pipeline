@@ -28,6 +28,18 @@ biom summarize-table \
   -i counts_summary/feature-table.biom \
   -o counts_summary/feature-table-summ.txt
 
+#Convery original biom table to BiomV210 format OTU table
+biom convert \
+-i taxatable-filtered-absolute.biom \
+-o taxatable.biom --table-type="OTU table" --to-hdf5
+
+#Extract taxonomy from the original file
+qiime tools import \
+  --input-path  taxatable.biom \
+  --output-path taxonomy.qza \
+  --input-format BIOMV210Format \
+  --type "FeatureData[Taxonomy]"
+  
 # Edit shotgun_downstream.sh with USER INPUTS
 # Run shotgun_downstream.sh
 sbatch BETA_shotgun_downstream.sh
