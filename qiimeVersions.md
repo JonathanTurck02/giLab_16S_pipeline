@@ -1,18 +1,18 @@
-## QIIME2 Version List and Update History 
+# QIIME2 Current Version
 
+## Most Recent Amplicon Distro: 2024.10-Amplicon
 
-### Most Recent Amplicon Distro: 2024.2
 ```shell
 # Activate qiime2 inside of HPRC
 module purge
-module load Anaconda3/2023.07-2
-source activate /sw/hprc/sw/Anaconda3/2023.07-2/envs/qiime2-2024.2-amplicon
+module load QIIME2/2024.10-Amplicon
 ```
 
-### New BETA Shotgun Distro: 2024.2
+### Preventing Python Cache Issues on HPRC
+If you run into numpy or numba cache issues when running qiime commands on HPRC please run the following.
+
 ```shell
-# Activate qiime2 inside of HPRC
-module purge
-module load Anaconda3/2023.07-2
-source activate /sw/hprc/sw/Anaconda3/2023.07-2/envs/qiime2-2024.2-shotgun
+export PYTHONNOUSERSITE=1
+mkdir -p numba_cache
+export NUMBA_CACHE_DIR=./numba_cache
 ```
