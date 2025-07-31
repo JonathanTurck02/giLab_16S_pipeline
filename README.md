@@ -1,7 +1,7 @@
 # GI Lab 16S Analysis Pipeline
 
 **Author:** Jonathan Turck  
-**Last Updated:** 5.28.2024
+**Last Updated:** 7.31.2025
 
 ## Description
 
@@ -9,10 +9,7 @@ This pipeline entails a 16S amplicon qiime2 workflow that works from raw reads a
 
 The pipeline depends on three batch scripts that handle general checkpoints in the pipeline. At each step, some user quality control checks are implemented and case-specific inputs are required.
 
-This script is currently in its BETA version. Please contact [jonathanturck@tamu.edu](mailto:jonathanturck@tamu.edu) if you find any issues or are confused with any documentation. You can also report any problems directly to the issues tab on GitHub.
-
-**For GI Lab Users:**  
-Navigate to the folder `Jonathan Turck/16S_pipeline_2024` to download the most recent files to run this pipeline.
+Please contact [jonathanturck@tamu.edu](mailto:jonathanturck@tamu.edu) if you find any issues or are confused with any documentation. You can also report any problems directly to the issues tab on GitHub.
 
 ## Table of Contents
 
@@ -29,9 +26,9 @@ While these scripts can work with a Linux system that has qiime2 installed, thei
 
 **For GRACE users:**  
 Begin by logging into your scratch directory and uploading the three core scripts:
-- `INDEV_preprocess.sh`
-- `INDEV_upstream.sh`
-- `INDEV_downstream.sh`
+- `preprocess.sh`
+- `upstream.sh`
+- `downstream.sh`
 
 Then upload the script-bank directly to your scratch directory.  
 The script-bank is a folder that includes the SILVA database for taxonomic assignment and the `create-manifest.sh` script that is needed to import the sequences into qiime2.
@@ -53,7 +50,8 @@ For differential abundance analysis Analysis of Compositions of Microbiomes (ANO
 
 **Dependencies**
 - script_bank folder
-    - can be found in the GitHub or on the GI lab shared drive at 'Jonathan Turck/16S_pipeline_2024'
+    - can be found in the GitHub
+- TAMU QIIME2/2024.10-Amplicon software module
 
 **Trimming**
 A general rule of thumb for picking the truncation lengths for the trimming step is to find where the score begins to dip below 30. Pick a position around this point to be truncation length.
@@ -75,5 +73,4 @@ For example if the forward read is 200bp long and it begins to lose quality belo
         - _Rule of Thumb:_ minimum reads from count_summary directory minus 5
     - mapping file with metadata 'mappingFile' (file name with extension; must be present in project folder)
     - column of interest: exact match of column name to run statistics on in the mapping file; 'columnName'
-
-
+    

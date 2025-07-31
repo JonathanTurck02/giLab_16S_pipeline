@@ -6,4 +6,5 @@ COMMANDS_C23-69.sh
 create-manifest-test.sh
 tinybio_16S_pipeline.sh
 scratch.sh
-script_bank/silva
+.DS_Store
+*.biom
